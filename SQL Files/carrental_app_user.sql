@@ -28,9 +28,10 @@ CREATE TABLE `app_user` (
   `user_password` varchar(50) DEFAULT NULL,
   `fullname` varchar(50) DEFAULT NULL,
   `role` varchar(50) DEFAULT NULL,
+  `contact` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`app_user_id`),
   UNIQUE KEY `user_name_UNIQUE` (`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +40,7 @@ CREATE TABLE `app_user` (
 
 LOCK TABLES `app_user` WRITE;
 /*!40000 ALTER TABLE `app_user` DISABLE KEYS */;
-INSERT INTO `app_user` VALUES (1,'ali','123','Hujaj Ali Qambrani','ADMIN'),(2,'amjad','123','Amjad Ali Mirjat','CLIENT'),(3,'mujtaba','123','Ghulam Mujtaba Juna','CUSTOMER');
+INSERT INTO `app_user` VALUES (1,'ali','123','Hujaj Ali Qambrani','ADMIN',NULL),(2,'amjad','123','Amjad Ali Mirjat','CLIENT',NULL),(3,'mujtaba','123','Ghulam Mujtaba Juna','CUSTOMER',NULL),(4,'sajjad','123','Sajjad','CLIENT','03457841245');
 /*!40000 ALTER TABLE `app_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-15 11:16:48
+-- Dump completed on 2024-12-17 15:43:25
