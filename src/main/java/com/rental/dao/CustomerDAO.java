@@ -35,30 +35,5 @@ public class CustomerDAO {
             return null;
         }
     }
-	
-	
-    public List<CarModel> getAllCars() {
-    	List<CarModel> listOfCars = new ArrayList<>();
-        String query = "SELECT * FROM "+TBL_CAR;;
-        try (Connection conn = getConnection(UtilConstants.DRIVER,UtilConstants.DB_URL,UtilConstants.DB_USER,UtilConstants.DB_PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-            	CarModel car = new CarModel();
-            	car.setAppUserid(rs.getLong(UtilConstants.APP_USER_ID));
-            	car.setCarCompany(rs.getString(COMPANY));
-            	car.setCarName(rs.getString(CAR_NAME));
-            	car.setCarModel(rs.getString(CAR_MODEL));
-            	car.setYear(rs.getInt(CAR_YEAR));
-            	car.setPrice(rs.getDouble(CAR_PRICE));
-                
-                listOfCars.add(car);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listOfCars;
-    }
 
 }

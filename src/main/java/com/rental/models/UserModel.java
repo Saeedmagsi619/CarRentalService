@@ -7,6 +7,7 @@ public class UserModel {
 	private String username;
 	private String password;
 	private String role;
+	//TODO: contact number for car booking
 	
 	public String getName() {
 		return name;

@@ -8,7 +8,7 @@
 <title>Admin - Dashboard</title>
 </head>
 <body>
-<% UserModel userModel=(UserModel)request.getAttribute("user"); %>
+<% UserModel userModel=(UserModel)session.getAttribute("user"); %>
 
 Hi <%=userModel.getName()%>
 Your role is : <%=userModel.getRole()%>

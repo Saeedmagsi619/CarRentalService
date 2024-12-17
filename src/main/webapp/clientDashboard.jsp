@@ -137,7 +137,7 @@ body {
     <div class="container">
         <!-- User Info Section -->
         <div class="user-info">
-            <% UserModel userModel = (UserModel) request.getAttribute("user"); 
+            <% UserModel userModel = (UserModel) session.getAttribute("user"); 
                List<CarModel> cars = (List<CarModel>)request.getAttribute("clientCars");
             %>
             <h5>Hi, <%= userModel.getName() %></h5>

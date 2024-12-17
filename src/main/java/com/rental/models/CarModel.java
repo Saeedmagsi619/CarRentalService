@@ -10,6 +10,7 @@ public class CarModel {
 	private double price;
 	private long   appUserid;
 	
+	
 	public long getCarId() {
 		return carId;
 	}

@@ -11,4 +11,6 @@ public class ViewsConstants {
 	
 	
 	public static final String ADD_CAR_FORM = "addCarForm.jsp";
+	
+	public static final String CAR_BOOKING_FORM = "carBookingForm.jsp";
 }

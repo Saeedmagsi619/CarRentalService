@@ -14,54 +14,38 @@ import com.rental.dao.CustomerDAO;
 import com.rental.dao.UserDAO;
 import com.rental.models.UserModel;
 
-/**
- * Servlet implementation class LoginController
- */
+
 @WebServlet("/loginController")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         UserDAO userDAO = new UserDAO();
+        CarDAO carDAO = new CarDAO();
         UserModel userModel = userDAO.validateUser(username, password);
 
         if (userModel != null && userModel.getRole() != null) {
-        	request.setAttribute("user", userModel);
+        	request.getSession().setAttribute("user", userModel);
             // Role-based forwarding
             switch (userModel.getRole()) {
                 case UtilConstants.ADMIN_ROLE:
                     request.getRequestDispatcher(ViewsConstants.ADMIN_DASHBOARD_PAGE).forward(request, response);
                     break;
                 case UtilConstants.CLIENT_ROLE:
-                	CarDAO carDAO = new CarDAO();
                 	request.setAttribute("clientCars", carDAO.getAllCarsByClient(userModel.getAppUserid()));
                     request.getRequestDispatcher(ViewsConstants.CLIENT_DASHBOARD_PAGE).forward(request, response);
                     break;
                 case UtilConstants.CUSTOMER_ROLE:
-                	CustomerDAO customerDAO = new CustomerDAO();
-                	request.setAttribute("customerCars", customerDAO.getAllCars());
+                	request.setAttribute("customerCars", carDAO.getAllCars());
                     request.getRequestDispatcher(ViewsConstants.CUSTOMER_DASHBOARD_PAGE).forward(request, response);
                     break;
             }

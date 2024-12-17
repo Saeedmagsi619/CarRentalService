@@ -27,7 +27,7 @@
                         carNameSelect.empty(); // Clear existing options
                         $.each(carNames, function (index, car) {
                             carNameSelect.append(
-                                "<option value=''"+car.carName+"'>"+car.carName+"</option>"
+                                "<option value='"+car.carName+"'>"+car.carName+"</option>"
                             );
                         });
                     },
@@ -50,12 +50,12 @@
                         carModelSelect.empty(); // Clear existing options
                         $.each(carModels, function (index, car) {
                         	carModelSelect.append(
-                                "<option value=''"+car.model+"'>"+car.model+"</option>"
+                                "<option value='"+car.model+"'>"+car.model+"</option>"
                             );
                         });
                     },
                     error: function () {
-                        alert("Error fetching car names!");
+                        alert("Error fetching car models!");
                     },
                 });
             });
@@ -70,7 +70,7 @@
 	List<CarNameVariantModel> carNameVariants = (List<CarNameVariantModel>)request.getAttribute("carModelVariants");
 %>
 
-<form action="loginController" method="post">
+<form action="addEditCarServlet" method="post">
 		<table style="background-color: lightgreen; margin-left: 20px; margin-top: 20px">
 			<tr>
 				<td>

@@ -137,7 +137,7 @@ body {
     <div class="container">
         <!-- User Info Section -->
         <div class="user-info">
-            <% UserModel userModel = (UserModel) request.getAttribute("user"); 
+            <% UserModel userModel = (UserModel) session.getAttribute("user"); 
                List<CarModel> cars = (List<CarModel>)request.getAttribute("customerCars");
             %>
             <h5>Hi, <%= userModel.getName() %></h5>
@@ -157,7 +157,7 @@ body {
                     <p><strong>Year:</strong> <%=car.getYear() %></p>
                 </div>
                 <div class="card-footer">
-                    <button class="btn edit-btn">Book Car</button>
+                    <a href="${pageContext.request.contextPath}/customerController?action=bookCar&carId=<%=car.getCarId()%>" class="btn edit-btn">Book Car</a>
                     <p class="btn delete-btn"><%=car.getPrice() %></p>
                 </div>
             </div>

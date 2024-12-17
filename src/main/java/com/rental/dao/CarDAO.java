@@ -1,5 +1,7 @@
 package com.rental.dao;
 
+import static com.rental.constants.UtilConstants.APP_USER_ID;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,6 +17,8 @@ import com.rental.models.CarNameVariantModel;
 import com.rental.models.CompanyModel;
 import com.rental.models.UserModel;
 
+import static com.rental.constants.UtilConstants.APP_USER_ID;
+
 public class CarDAO {
 	
 	//TABLE NAMES
@@ -24,11 +28,11 @@ public class CarDAO {
 	private final String TBL_CAR_NAME_MODEL = "car_name_model";
 	
 	//COLUMNS NAMES CAR
-	private final String CAR_ID = "carId";
-	private final String COMPANY = "company";
-	private final String CAR_NAME = "car_name";
+	private final String CAR_ID    = "car_id";
+	private final String COMPANY   = "company";
+	private final String CAR_NAME  = "car_name";
 	private final String CAR_MODEL = "model";
-	private final String CAR_YEAR = "year";
+	private final String CAR_YEAR  = "year";
 	private final String CAR_PRICE = "price";
 	
 	//COLUMNS NAMES COMPANY
@@ -56,7 +60,7 @@ public class CarDAO {
 	    
     public List<CarModel> getAllCarsByClient(long appUserId) {
     	List<CarModel> listOfCars = new ArrayList<>();
-        String query = "SELECT * FROM "+TBL_CAR+" WHERE "+UtilConstants.APP_USER_ID+" = ?";
+        String query = "SELECT * FROM "+TBL_CAR+" WHERE "+APP_USER_ID+" = ?";
         try (Connection conn = getConnection(UtilConstants.DRIVER,UtilConstants.DB_URL,UtilConstants.DB_USER,UtilConstants.DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -65,7 +69,7 @@ public class CarDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
             	CarModel car = new CarModel();
-            	car.setAppUserid(rs.getLong(UtilConstants.APP_USER_ID));
+            	car.setAppUserid(rs.getLong(APP_USER_ID));
             	car.setCarCompany(rs.getString(COMPANY));
             	car.setCarName(rs.getString(CAR_NAME));
             	car.setCarModel(rs.getString(CAR_MODEL));
@@ -78,6 +82,60 @@ public class CarDAO {
             e.printStackTrace();
         }
         return listOfCars;
+    }
+    
+    public List<CarModel> getAllCars() {
+    	List<CarModel> listOfCars = new ArrayList<>();
+        String query = "SELECT * FROM "+TBL_CAR;;
+        try (Connection conn = getConnection(UtilConstants.DRIVER,UtilConstants.DB_URL,UtilConstants.DB_USER,UtilConstants.DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+            	CarModel car = new CarModel();
+            	car.setCarId(rs.getLong(CAR_ID));
+            	car.setAppUserid(rs.getLong(APP_USER_ID));
+            	car.setCarCompany(rs.getString(COMPANY));
+            	car.setCarName(rs.getString(CAR_NAME));
+            	car.setCarModel(rs.getString(CAR_MODEL));
+            	car.setYear(rs.getInt(CAR_YEAR));
+            	car.setPrice(rs.getDouble(CAR_PRICE));
+            	
+                
+                listOfCars.add(car);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfCars;
+    }
+    
+    
+    
+    public CarModel getCarByCarId(long carId) {
+    	CarModel car = new CarModel();
+        String query = "SELECT * FROM "+TBL_CAR+" WHERE "+CAR_ID+" = ?";
+        try (Connection conn = getConnection(UtilConstants.DRIVER,UtilConstants.DB_URL,UtilConstants.DB_USER,UtilConstants.DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setLong(1, carId);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+            	car.setAppUserid(rs.getLong(APP_USER_ID));
+            	car.setCarId(rs.getLong(CAR_ID));
+            	car.setCarCompany(rs.getString(COMPANY));
+            	car.setCarName(rs.getString(CAR_NAME));
+            	car.setCarModel(rs.getString(CAR_MODEL));
+            	car.setYear(rs.getInt(CAR_YEAR));
+            	car.setPrice(rs.getDouble(CAR_PRICE));
+            	car.setCarId(rs.getLong(CAR_ID));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return car;
     }
     
     public List<CarNameModel> getAllCarNamesByCompany(String company) {
@@ -149,6 +207,29 @@ public class CarDAO {
             e.printStackTrace();
         }
         return listOfCarNameVariantModel;
+    }
+    
+    public boolean saveClientCar(CarModel carModel) {
+        String query = "INSERT INTO "+TBL_CAR+" ("+APP_USER_ID+","+COMPANY+","+CAR_NAME+","+CAR_MODEL+","+CAR_YEAR+","+CAR_PRICE+") "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+	   try (Connection conn = getConnection(UtilConstants.DRIVER,UtilConstants.DB_URL,UtilConstants.DB_USER,UtilConstants.DB_PASSWORD);
+	           PreparedStatement stmt = conn.prepareStatement(query)) {
+	
+	   	stmt.setLong(1, carModel.getAppUserid());
+	   	stmt.setString(2, carModel.getCarCompany());
+	   	stmt.setString(3, carModel.getCarName());
+	   	stmt.setString(4, carModel.getCarModel());
+	   	stmt.setInt(5, carModel.getYear());
+	   	stmt.setDouble(6, carModel.getPrice());
+	   	
+	
+	    int rowsInserted = stmt.executeUpdate();
+	    return rowsInserted > 0;
+	
+	   } catch (SQLException e) {
+	       e.printStackTrace();
+	       return false;
+	   }
     }
     
 
