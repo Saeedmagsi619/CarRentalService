@@ -9,6 +9,7 @@ public class CarModel {
 	private int    year;
 	private double price;
 	private long   appUserid;
+	private String status;
 	
 	
 	public long getCarId() {
@@ -52,6 +53,12 @@ public class CarModel {
 	}
 	public void setAppUserid(long appUserid) {
 		this.appUserid = appUserid;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

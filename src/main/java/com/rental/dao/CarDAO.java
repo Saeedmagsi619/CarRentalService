@@ -34,6 +34,7 @@ public class CarDAO {
 	private final String CAR_MODEL = "model";
 	private final String CAR_YEAR  = "year";
 	private final String CAR_PRICE = "price";
+	private final String IS_BOOKED = "isBooked";
 	
 	//COLUMNS NAMES COMPANY
 	private final String COMPANY_ID = "company_id";
@@ -130,6 +131,7 @@ public class CarDAO {
             	car.setYear(rs.getInt(CAR_YEAR));
             	car.setPrice(rs.getDouble(CAR_PRICE));
             	car.setCarId(rs.getLong(CAR_ID));
+            	car.setStatus(rs.getString(IS_BOOKED));
                 
             }
         } catch (SQLException e) {
@@ -232,5 +234,24 @@ public class CarDAO {
 	   }
     }
     
+    public boolean updateCar(CarModel carModel) {
+        String query = "UPDATE cars SET "
+        		+ "company = '"+carModel.getCarCompany()+"',car_name = '"+carModel.getCarName()+"',model = '"+carModel.getCarModel()+"',"
+        		+ "year = '"+carModel.getYear()+"',price = '"+carModel.getYear()+"',isBooked = '"+carModel.getStatus()+"' "
+        		+ "WHERE car_id = ?;";
+	   try (Connection conn = getConnection(UtilConstants.DRIVER,UtilConstants.DB_URL,UtilConstants.DB_USER,UtilConstants.DB_PASSWORD);
+	           PreparedStatement stmt = conn.prepareStatement(query)) {
+	
+	   	stmt.setLong(1,   carModel.getCarId());
+	   	
+	
+	    int rowsInserted = stmt.executeUpdate();
+	    return rowsInserted > 0;
+	
+	   } catch (SQLException e) {
+	       e.printStackTrace();
+	       return false;
+	   }
+    }
 
 }

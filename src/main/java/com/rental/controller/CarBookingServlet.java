@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rental.dao.CarBookingDAO;
+import com.rental.dao.CarDAO;
 import com.rental.models.CarBookingModel;
+import com.rental.models.CarModel;
 import com.rental.models.UserModel;
 
 
@@ -62,6 +64,10 @@ public class CarBookingServlet extends HttpServlet {
 
         // Response
         if (isInserted) {
+        	CarDAO carDAO = new CarDAO();
+        	CarModel carModel = carDAO.getCarByCarId(carId);
+        	carModel.setStatus("Y");
+        	carDAO.updateCar(carModel);
             response.getWriter().println("Car booked successfully!");
         } else {
             response.getWriter().println("Failed to book the car. Please try again.");

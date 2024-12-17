@@ -44,7 +44,7 @@ public class AddEditCarServlet extends HttpServlet {
         // Response
         if (isInserted) {
         	request.setAttribute("clientCars", carDAO.getAllCarsByClient(userModel.getAppUserid()));
-            request.getRequestDispatcher(ViewsConstants.CLIENT_DASHBOARD_PAGE);
+            request.getRequestDispatcher(ViewsConstants.CLIENT_DASHBOARD_PAGE).forward(request, response);
         } else {
             response.getWriter().println("Failed to Save the Car. Please try again.");
         }
