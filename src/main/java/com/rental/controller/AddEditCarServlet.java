@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.rental.constants.ViewsConstants;
 import com.rental.dao.CarDAO;
 import com.rental.models.CarModel;
 import com.rental.models.UserModel;
@@ -42,7 +43,8 @@ public class AddEditCarServlet extends HttpServlet {
 
         // Response
         if (isInserted) {
-            response.getWriter().println("Car Saved successfully!");
+        	request.setAttribute("clientCars", carDAO.getAllCarsByClient(userModel.getAppUserid()));
+            request.getRequestDispatcher(ViewsConstants.CLIENT_DASHBOARD_PAGE);
         } else {
             response.getWriter().println("Failed to Save the Car. Please try again.");
         }
