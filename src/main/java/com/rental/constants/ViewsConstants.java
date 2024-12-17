@@ -3,7 +3,7 @@ package com.rental.constants;
 public class ViewsConstants {
 	
 	public static final String LOGIN_PAGE = "login.jsp";
-	public static final String SIGN_UP_PAGE = "";
+	public static final String SIGN_UP_PAGE = "register.jsp";
 	
 	public static final String ADMIN_DASHBOARD_PAGE    = "adminDashboard.jsp";
 	public static final String CLIENT_DASHBOARD_PAGE   = "clientDashboard.jsp";

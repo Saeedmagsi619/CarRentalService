@@ -2,12 +2,13 @@ package com.rental.models;
 
 public class UserModel {
 	
-	private long appUserid;
+	
 	private String name;
 	private String username;
 	private String password;
 	private String role;
-	//TODO: contact number for car booking
+	private String contactNumber;
+	private long appUserid;
 	
 	public String getName() {
 		return name;
@@ -39,5 +40,12 @@ public class UserModel {
 	public void setAppUserid(long appUserid) {
 		this.appUserid = appUserid;
 	}
+	public String getContactNumber() {
+		return contactNumber;
+	}
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+	
 	
 }

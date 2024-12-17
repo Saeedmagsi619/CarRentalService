@@ -1,49 +1,59 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    
-<%@ page isELIgnored="false" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+    <title>User Registration</title>
+    <script>
+        function validateForm() {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
-	<form action="registerationController" method="post">
-		<table style="background-color: skyblue; margin-left: 20px; margin-top: 20px">
-		
-			<tr>
-				<td>
-					<h3 style="color: red">${errorMessage}</h3>
-				</td>
-			</tr>
-		
-			<tr>
-				<td>
-					<h3 style="color: black">Registration Page!!!</h3>
-				</td>
-			</tr>
-			<tr>
-				<td>UserName : </td>
-				<td><input type="text" name="username" value="${userName}"></td>
-			</tr>
-			<tr>
-				<td>Name : </td>
-				<td><input type="text" name="name" value="${Name}"></td>
-			</tr>
-			<tr>
-				<td>Password : </td>
-				<td><input type="password" name="password1"></td>
-			</tr>
-			<tr>
-				<td>Re-Type Password : </td>
-				<td><input type="password" name="password2"></td>
-			</tr>
-			<tr>
-				<td><input type="submit" name="submit" value="Register"></td>
-			</tr>
-		</table>
-	</form>
+	<%
+	String sm  = "";
+	String erm = "";
+	if(request.getAttribute("successMessage") != null){
+		sm = (String)request.getAttribute("successMessage");
+	}
+	if(request.getAttribute("errorMessage") != null){
+		erm = (String)request.getAttribute("errorMessage");
+	}
+	%>
+    <h2>User Registration</h2>
+    <h3 style="color: red"><%=erm%></h3>
+	<h3 style="color: green"><%=sm%></h3>
+				
+    <form action="registerationController" method="post" onsubmit="return validateForm()">
+        <label>Name:</label>
+        <input type="text" name="name" required /><br><br>
+
+        <label>Username:</label>
+        <input type="text" name="username" required /><br><br>
+
+        <label>Password:</label>
+        <input type="password" id="password" name="password" required /><br><br>
+
+        <label>Confirm Password:</label>
+        <input type="password" id="confirmPassword" required /><br><br>
+
+        <label>Role:</label>
+        <select name="role" required>
+            <option value="CLIENT">CLIENT</option>
+            <option value="CUSTOMER">CUSTOMER</option>
+        </select><br><br>
+
+        <label>Contact Number:</label>
+        <input type="text" name="contactNumber" required /><br><br>
+
+        <input type="submit" value="Register" />
+    </form>
 </body>
 </html>

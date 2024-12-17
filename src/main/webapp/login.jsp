@@ -14,8 +14,7 @@
 		<table style="background-color: lightgreen; margin-left: 20px; margin-top: 20px">
 			<tr>
 				<td>
-					<h3 style="color: red">${message}</h3>
-					<h3 style="color: green">${successMessage}</h3>
+					<h3 style="color: red"><%=request.getAttribute("errorMessage")%></h3>
 				</td>
 			</tr>
 			<tr>
