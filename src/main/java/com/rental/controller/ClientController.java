@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.rental.constants.UtilConstants;
 import com.rental.constants.ViewsConstants;
 import com.rental.dao.CarDAO;
+import com.rental.models.CarNameModel;
+import com.rental.models.CarNameVariantModel;
 import com.rental.models.CompanyModel;
 
 
@@ -40,10 +42,17 @@ public class ClientController extends HttpServlet {
 			case ACTION_ADD_NEW_CAR:
 				List<CompanyModel> listOfComapnies = carDAO.getAllCompanies();
 				String companyName = "";
+				String carName     = "";
 				if(listOfComapnies != null && listOfComapnies.size() > 0)
 					companyName = listOfComapnies.get(0).getCompanyName();
-				request.setAttribute("companies", carDAO.getAllCompanies());
-				request.setAttribute("carNames", carDAO.getAllCarNamesByCompany(companyName));
+				List<CarNameModel> listOfCarNameModel = carDAO.getAllCarNamesByCompany(companyName);
+				if(listOfCarNameModel != null && listOfCarNameModel.size() > 0)
+					 carName = listOfCarNameModel.get(0).getCarName();
+				List<CarNameVariantModel> listOfCarNameVariantModel = carDAO.getAllCarNameModelsByCarName(carName);
+				
+				request.setAttribute("companies", listOfComapnies);
+				request.setAttribute("carNames", listOfCarNameModel);
+				request.setAttribute("carModelVariants", listOfCarNameVariantModel);
 	            request.getRequestDispatcher(ViewsConstants.ADD_CAR_FORM).forward(request, response);
 	            break;
 		}

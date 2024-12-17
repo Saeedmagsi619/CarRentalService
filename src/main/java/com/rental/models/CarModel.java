@@ -8,7 +8,7 @@ public class CarModel {
 	private String carModel;
 	private int    year;
 	private double price;
-	private long appUserid;
+	private long   appUserid;
 	
 	public long getCarId() {
 		return carId;

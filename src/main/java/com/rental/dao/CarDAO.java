@@ -11,15 +11,17 @@ import java.util.List;
 import com.rental.constants.UtilConstants;
 import com.rental.models.CarModel;
 import com.rental.models.CarNameModel;
+import com.rental.models.CarNameVariantModel;
 import com.rental.models.CompanyModel;
 import com.rental.models.UserModel;
 
 public class CarDAO {
 	
 	//TABLE NAMES
-	private final String TBL_CAR = "cars";
-	private final String TBL_COMPANY = "car_companies";
-	private final String TBL_CAR_NAMES = "car_names";
+	private final String TBL_CAR            = "cars";
+	private final String TBL_COMPANY        = "car_companies";
+	private final String TBL_CAR_NAMES      = "car_names";
+	private final String TBL_CAR_NAME_MODEL = "car_name_model";
 	
 	//COLUMNS NAMES CAR
 	private final String CAR_ID = "carId";
@@ -36,6 +38,10 @@ public class CarDAO {
 	//COLUMNS NAMES COMPNAY
 	private final String CAR_NAME_ID = "car_name_id";
 	private final String CAR_COMPANY = "car_company";
+	
+	//COLUMNS CAR NAME MODEL COMPNAY
+	private final String CAR_NAME_MODEL_ID = "car_name_model_id";
+		
 	
 	public Connection getConnection(String DRIVER,String DB_URL,String DB_USER,String DB_PASSWORD) {
         try {
@@ -118,6 +124,31 @@ public class CarDAO {
             e.printStackTrace();
         }
         return listOfCompnies;
+    }
+    
+    public List<CarNameVariantModel> getAllCarNameModelsByCarName(String carName) {
+    	List<CarNameVariantModel> listOfCarNameVariantModel = new ArrayList<>();
+        String query = "SELECT * FROM "+TBL_CAR_NAME_MODEL+" WHERE "+CAR_NAME+" = ?";
+        try (Connection conn = getConnection(UtilConstants.DRIVER,UtilConstants.DB_URL,UtilConstants.DB_USER,UtilConstants.DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+        	 stmt.setString(1, carName);
+        	
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+            	
+            	CarNameVariantModel carNameVariantModel = new CarNameVariantModel();
+            	
+            	carNameVariantModel.setCarNameModelId(rs.getLong(CAR_NAME_MODEL_ID));
+            	carNameVariantModel.setModel(rs.getString(CAR_MODEL));
+            	carNameVariantModel.setCarName(rs.getString(CAR_NAME));
+            	
+            	
+            	listOfCarNameVariantModel.add(carNameVariantModel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfCarNameVariantModel;
     }
     
 

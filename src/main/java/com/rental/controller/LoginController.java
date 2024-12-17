@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.rental.constants.UtilConstants;
 import com.rental.constants.ViewsConstants;
 import com.rental.dao.CarDAO;
+import com.rental.dao.CustomerDAO;
 import com.rental.dao.UserDAO;
 import com.rental.models.UserModel;
 
@@ -59,6 +60,8 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher(ViewsConstants.CLIENT_DASHBOARD_PAGE).forward(request, response);
                     break;
                 case UtilConstants.CUSTOMER_ROLE:
+                	CustomerDAO customerDAO = new CustomerDAO();
+                	request.setAttribute("customerCars", customerDAO.getAllCars());
                     request.getRequestDispatcher(ViewsConstants.CUSTOMER_DASHBOARD_PAGE).forward(request, response);
                     break;
             }
