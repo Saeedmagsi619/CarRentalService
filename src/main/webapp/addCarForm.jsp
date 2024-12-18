@@ -11,7 +11,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Add New Car - Client</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -61,7 +61,152 @@
             });
         });
     </script>
+<style>
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Form Container */
+form {
+    max-width: 600px;
+    background: #ffffff;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table td {
+    padding: 10px 15px;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+/* Headings */
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+h3[style*="color: red"] {
+    color: #e74c3c;
+}
+
+h3[style*="color: green"] {
+    color: #2ecc71;
+}
+
+/* Inputs and Selects */
+select,
+input[type="text"],
+input[type="submit"],
+input[type="reset"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Focus Styling */
+select:focus,
+input[type="text"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* Submit Button */
+input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Reset Button */
+input[type="reset"] {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+input[type="reset"]:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    form {
+        padding: 15px;
+    }
+
+    table td {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    table td:first-child {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    table td:nth-child(2) {
+        margin-bottom: 10px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+        width: 48%;
+        margin-right: 2%;
+    }
+
+    input[type="reset"] {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    input[type="submit"],
+    input[type="reset"] {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+</style>
 </head>
 <body>
 <% 
@@ -71,7 +216,7 @@
 %>
 
 <form action="addEditCarServlet" method="post">
-		<table style="background-color: lightgreen; margin-left: 20px; margin-top: 20px">
+		<table>
 			<tr>
 				<td>
 					<h3 style="color: red">${message}</h3>
