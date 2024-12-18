@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
     <style>
+	    
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
@@ -92,6 +93,14 @@
             text-align: center;
             margin-top: 20px;
         }
+		.login-button {
+	        display: inline-block;
+	        padding: 10px 20px;
+	        border-radius: 5px;
+	        text-decoration: none;
+	        font-size: 16px;
+	        margin-top: 10px;
+	    }
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
@@ -174,7 +183,10 @@
                     <input type="submit" value="Register" />
                 </div>
             </form>
-
+			<div class="form-group">
+			    <a href="/CarRentalService/login.jsp" class="login-button">Login</a>
+			</div>
+			
             <div class="footer">
                 <p>&copy; 2024 Car Service. All rights reserved.</p>
             </div>
