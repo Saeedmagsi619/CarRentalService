@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Client - Dashboard</title>
 
 <style>
@@ -14,51 +15,56 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
 }
 
+/* Container */
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align items to the left */
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 
 /* User Info Section */
 .user-info {
-    max-width: 300px;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: left;
-    margin-bottom: 20px; /* Add spacing between user info and cards */
-    color: #333;
 }
 
 .user-info h5 {
     margin: 0;
-    font-size: 1.5em;
-    color: #007bff;
+    font-size: 1.8em;
+    color: #0056b3;
 }
 
 .user-info p {
-    margin: 5px 0;
+    margin: 10px 0;
     font-size: 1em;
     color: #555;
 }
 
 .user-info .add-car-btn {
     display: inline-block;
-    margin-top: 10px;
-    padding: 8px 15px;
+    margin-top: 15px;
+    padding: 10px 20px;
     background-color: #28a745;
     color: #fff;
     text-decoration: none;
-    border-radius: 4px;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .user-info .add-car-btn:hover {
     background-color: #218838;
+    transform: scale(1.05);
 }
 
 /* Cards Section */
@@ -66,22 +72,31 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: flex-start; /* Cards start from the left */
+    justify-content: flex-start;
 }
 
 .card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .card-header h3 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.4em;
     color: #333;
 }
 
@@ -91,6 +106,10 @@ body {
     color: #777;
 }
 
+.card-body {
+    padding: 15px;
+}
+
 .card-body p {
     margin: 5px 0;
     font-size: 1em;
@@ -98,18 +117,21 @@ body {
 }
 
 .card-footer {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #f0f0f0;
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
 }
 
 .btn {
     padding: 8px 15px;
     font-size: 0.9em;
+    font-weight: bold;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .edit-btn {
@@ -119,6 +141,7 @@ body {
 
 .edit-btn:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 .delete-btn {
@@ -128,8 +151,33 @@ body {
 
 .delete-btn:hover {
     background-color: #a71d2a;
+    transform: scale(1.05);
 }
 
+/* Responsive Design */
+@media (max-width: 992px) {
+    .card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .user-info h5 {
+        font-size: 1.5em;
+    }
+
+    .user-info p {
+        font-size: 0.9em;
+    }
+
+    .card {
+        width: calc(100% - 20px);
+    }
+
+    .cards-container {
+        justify-content: center;
+    }
+}
 </style>
 
 </head>
@@ -146,24 +194,24 @@ body {
         </div>
 
         <!-- Cards Section -->
-        <%for(CarModel car:cars) {%>
         <div class="cards-container">
+            <% for(CarModel car : cars) { %>
             <div class="card">
                 <div class="card-header">
-                    <h3 class="car-name"><%=car.getCarName() %></h3>
-                    <p class="car-company">Company: <%=car.getCarCompany() %></p>
+                    <h3 class="car-name"><%= car.getCarName() %></h3>
+                    <p class="car-company">Company: <%= car.getCarCompany() %></p>
                 </div>
                 <div class="card-body">
-                    <p><strong>Model:</strong> <%=car.getCarModel() %></p>
-                    <p><strong>Year:</strong> <%=car.getYear() %></p>
+                    <p><strong>Model:</strong> <%= car.getCarModel() %></p>
+                    <p><strong>Year:</strong> <%= car.getYear() %></p>
                 </div>
                 <div class="card-footer">
                     <button class="btn edit-btn">Edit</button>
                     <button class="btn delete-btn">Delete</button>
                 </div>
             </div>
+            <% } %>
         </div>
-        <%} %>
     </div>
 </body>
 </html>
